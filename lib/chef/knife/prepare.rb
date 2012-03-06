@@ -13,6 +13,11 @@ class Chef
 
       banner "knife prepare [user@]hostname (options)"
 
+      option :ruby_version,
+        :short => "-r VERSION",
+        :long => "--ruby-version VERSION",
+        :description => "The desired Ruby version (default: 1.8.7)."
+
       def run
         super
         bootstrap.bootstrap!

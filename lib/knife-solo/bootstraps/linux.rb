@@ -58,8 +58,15 @@ module KnifeSolo::Bootstraps
       run_command("sudo apt-get update")
 
       ui.msg "Installing required packages..."
-      @packages = %w(ruby ruby-dev libopenssl-ruby irb
-                     build-essential wget ssl-cert rsync)
+      
+      if config[:ruby_version].nil? || config[:ruby_version] == '1.8.7'
+        @packages = %w(ruby ruby-dev libopenssl-ruby irb build-essential wget ssl-cert rsync)
+      elsif config[:ruby_version] == '1.9.2'
+        @packages = %w(ruby1.9.1 ruby1.9.1-dev libopenssl-ruby1.9.1 irb1.9.1 build-essential wget ssl-cert rsync)
+      else
+        raise "Ruby version #{config[:ruby_version]} not recognized."
+      end
+
       run_command <<-BASH
         sudo DEBIAN_FRONTEND=noninteractive apt-get --yes install #{package_list}
       BASH

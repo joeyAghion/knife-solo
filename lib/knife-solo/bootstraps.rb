@@ -34,6 +34,10 @@ module KnifeSolo
       def prepare
         @prepare
       end
+      
+      def config
+        prepare.config
+      end
     end #Delegates
 
     module InstallCommands
